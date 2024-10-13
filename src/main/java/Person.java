@@ -1,5 +1,3 @@
-package com;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -62,6 +60,10 @@ public class Person {
 
   public String getAddress() {
     return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
   }
 
   public String toString() {

@@ -1,5 +1,3 @@
-package com;
-
 import java.util.*;
 import java.util.stream.*;
 
@@ -39,7 +37,7 @@ public class PersonUtilStreams {
   //
   //
   //
-  public List<Person> findAllChildrenWithoutUsingAge() {
+  public List<Person> findAllChildrenFromParents() {
     return people.stream()
         .flatMap(person -> person.getChildren().stream())
         .distinct()
@@ -53,19 +51,35 @@ public class PersonUtilStreams {
         .collect(Collectors.toSet());
   }
 
-  //
-  //
-  public Map<String, Person> findPeopleByAddress() {
+  public Set<Person> findAllSpouses() {
     return people.stream()
-        .collect(Collectors.toMap(Person::getAddress, person -> person));
+        .map(Person::getSpouse)
+        .flatMap(Optional::stream)
+        .collect(Collectors.toSet());
+  }
+
+  //
+  //
+  public Map<String, List<Person>> findPeopleByAddress() {
+    return people.stream()
+        .collect(Collectors.groupingBy(Person::getAddress));
   }
 
   //
   //
   //
-  public Map<String, Integer> findAgesByAddress() {
+  public Map<String, List<Integer>> findAgesByAddress() {
     return people.stream()
-        .collect(Collectors.toMap(Person::getAddress, Person::getAge));
+        .collect(Collectors.groupingBy(
+            Person::getAddress,
+            Collectors.mapping(Person::getAge, Collectors.toList())));
+  }
+
+  public double getAverageAge() {
+    return people.stream()
+        .mapToInt(Person::getAge)
+        .average()
+        .orElse(0);
   }
 
   //
@@ -78,4 +92,12 @@ public class PersonUtilStreams {
         .toString();
   }
   //
+  //
+
+  public void setAddressOfPeople(String address) {
+    String newAddress = address != null ? address : "Missing address";
+
+    people.stream()
+        .forEach(person -> person.setAddress(newAddress));
+  }
 }

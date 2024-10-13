@@ -1,5 +1,3 @@
-package com;
-
 import java.util.*;
 //
 
@@ -39,7 +37,7 @@ public class PersonUtil {
     return children;
   }
 
-  public List<Person> findAllChildrenFromTheirParent() {
+  public List<Person> findAllChildrenFromParents() {
     Set<Person> children = new HashSet<>();
     for (Person person : people) {
       children.addAll(person.getChildren());
@@ -55,20 +53,38 @@ public class PersonUtil {
     return children;
   }
 
-  public Map<String, Person> findPeopleByAddress() {
-    Map<String, Person> result = new HashMap<>();
+  public Set<Person> findAllSpouses() {
+    Set<Person> spouses = new HashSet<>();
     for (Person person : people) {
-      result.put(person.getAddress(), person);
+      if (person.getSpouseOrNull() != null) {
+        spouses.add(person.getSpouseOrNull());
+      }
+    }
+    return spouses;
+  }
+
+  public Map<String, List<Person>> findPeopleByAddress() {
+    Map<String, List<Person>> result = new HashMap<>();
+    for (Person person : people) {
+      result.computeIfAbsent(person.getAddress(), k -> new ArrayList<>()).add(person);
     }
     return result;
   }
 
-  public Map<String, Integer> findAgesByAddress() {
-    Map<String, Integer> result = new HashMap<>();
+  public Map<String, List<Integer>> findAgesByAddress() {
+    Map<String, List<Integer>> result = new HashMap<>();
     for (Person person : people) {
-      result.put(person.getAddress(), person.getAge());
+      result.computeIfAbsent(person.getAddress(), k -> new ArrayList<>()).add(person.getAge());
     }
     return result;
+  }
+
+  public double getAverageAge() {
+    int sum = 0;
+    for (Person person : people) {
+      sum += person.getAge();
+    }
+    return (double) sum / people.size();
   }
 
   public String getPersonCsv() {
@@ -77,5 +93,13 @@ public class PersonUtil {
       sb.append(person.toString());
     }
     return sb.toString();
+  }
+
+  public void setAddressOfPeople(String address) {
+    String newAddress = address != null ? address : "Missing address";
+
+    for (Person person : people) {
+      person.setAddress(newAddress);
+    }
   }
 }
