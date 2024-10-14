@@ -11,95 +11,109 @@ public class PersonUtilStreams {
   }
 
   Optional<Person> findPersonByName(String name) {
-    return people.stream()
-        .filter(person -> person.getName().equals(name))
-        .findAny();
+    //
+    //
+    //
+    //
+    //
+    return null;
   }
 
-  //
-  //
-  //
   public List<Person> findPeopleByAgeRange(int min, int max) {
-    return people.stream()
-        .filter(person -> person.getAge() >= min && person.getAge() <= max)
-        .toList();
+    //
+    //
+    //
+    //
+    //
+    //
+    return null;
   }
 
-  //
-  //
-  //
-  //
   public List<Person> findAllChildren() {
-    return people.stream()
-        .filter(person -> person.getAge() < 18)
-        .toList();
+    //
+    //
+    //
+    //
+    //
+    //
+    return null;
   }
 
-  //
-  //
-  //
-  //
   public List<Person> findAllChildrenFromParents() {
-    return people.stream()
-        .flatMap(person -> person.getChildren().stream())
-        .distinct()
-        .toList();
+    //
+    //
+    //
+    //
+    return null;
   }
 
-  //
   public Set<Person> findAllChildrenAsSet() {
-    return people.stream()
-        .filter(person -> person.getAge() < 18)
-        .collect(Collectors.toSet());
+    //
+    //
+    //
+    //
+    return null;
   }
 
   public Set<Person> findAllSpouses() {
-    return people.stream()
-        .map(Person::getSpouse)
-        .flatMap(Optional::stream)
-        .collect(Collectors.toSet());
+    //
+    //
+    //
+    //
+    //
+    //
+    return null;
   }
 
-  //
-  //
   public Map<String, List<Person>> groupPeopleByAddress() {
-    return people.stream()
-        .collect(Collectors.groupingBy(Person::getAddress));
+    //
+    //
+    //
+    //
+    return null;
   }
 
-  //
-  //
-  //
   public Map<String, List<Integer>> groupAgesByAddress() {
-    return people.stream()
-        .collect(Collectors.groupingBy(
-            Person::getAddress,
-            Collectors.mapping(Person::getAge, Collectors.toList())));
+    //
+    //
+    //
+    //
+    return null;
+  }
+
+  public Optional<Person> getOldestPerson() {
+    //
+    //
+    //
+    //
+    //
+    //
+    return null;
   }
 
   public double getAverageAge() {
-    return people.stream()
-        .mapToInt(Person::getAge)
-        .average()
-        .orElse(0);
+    //
+    //
+    //
+    //
+    return 0.0;
   }
 
-  //
-  //
-  //
   public String getPersonCsv() {
-    return people.stream()
-        .map(Person::toString)
-        .reduce(new StringBuilder("Name,Age,Address\n"), (sb, person) -> sb.append(person), StringBuilder::append)
-        .toString();
+    //
+    //
+    //
+    //
+    //
+    //
+    return null;
   }
-  //
-  //
 
   public void setAddressOfPeople(String address) {
-    String newAddress = address != null ? address : "Missing address";
-
-    people.stream()
-        .forEach(person -> person.setAddress(newAddress));
+    //
+    //
+    //
+    //
+    //
   }
 }

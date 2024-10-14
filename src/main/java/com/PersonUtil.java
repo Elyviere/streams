@@ -81,6 +81,16 @@ public class PersonUtil {
     return result;
   }
 
+  public Person getOldestPerson() {
+    Person oldest = null;
+    for (Person person : people) {
+      if (oldest == null || person.getAge() > oldest.getAge()) {
+        oldest = person;
+      }
+    }
+    return oldest;
+  }
+
   public double getAverageAge() {
     int sum = 0;
     for (Person person : people) {
@@ -91,6 +101,8 @@ public class PersonUtil {
 
   public String getPersonCsv() {
     StringBuilder sb = new StringBuilder("Name,Age,Address\n");
+    List<Person> sortedPeople = new ArrayList<>(people);
+    sortedPeople.sort(Comparator.comparing(Person::getName));
     for (Person person : people) {
       sb.append(person.toString());
     }

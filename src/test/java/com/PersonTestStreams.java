@@ -1,31 +1,33 @@
 package com;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class PersonTest {
-  PersonUtil util;
+public class PersonTestStreams {
+  PersonUtilStreams util;
   List<Person> people;
 
   @BeforeEach
   void setup() {
     people = TestDataUtil.createTestPeople();
-    util = new PersonUtil(people);
+    util = new PersonUtilStreams(people);
   }
 
   @Test
   void testFindPersonByName() {
-    Person foundPerson = util.findPersonByName("Bob");
-    assertEquals("Bob", foundPerson.getName());
+    Optional<Person> foundPerson = util.findPersonByName("Bob");
+    assertTrue(foundPerson.isPresent());
+    assertEquals("Bob", foundPerson.get().getName());
 
-    Person notFoundPerson = util.findPersonByName("David");
-    assertNull(notFoundPerson);
+    Optional<Person> notFoundPerson = util.findPersonByName("David");
+    assertTrue(notFoundPerson.isEmpty());
   }
 
   @Test
@@ -39,10 +41,13 @@ public class PersonTest {
 
   @Test
   void testSpousesAreLinked() {
-    Person bob = util.findPersonByName("Bob");
-    Person alice = util.findPersonByName("Alice");
-    assertEquals(alice, bob.getSpouseOrNull());
-    assertEquals(bob, bob.getSpouseOrNull().getSpouseOrNull());
+    Optional<Person> bob = util.findPersonByName("Bob");
+    Optional<Person> alice = util.findPersonByName("Alice");
+    assertAll(
+        () -> assertTrue(bob.isPresent()),
+        () -> assertTrue(alice.isPresent()),
+        () -> assertEquals(alice, bob.get().getSpouseOrNull()),
+        () -> assertEquals(bob, bob.get().getSpouseOrNull().getSpouseOrNull()));
   }
 
   @Test
@@ -85,7 +90,9 @@ public class PersonTest {
 
   @Test
   void testGetOldestPerson() {
-    assertEquals("Charlie", util.getOldestPerson().getName());
+    Optional<Person> oldestPerson = util.getOldestPerson();
+    assertTrue(oldestPerson.isPresent());
+    assertEquals("Charlie", oldestPerson.get().getName());
   }
 
   @Test
