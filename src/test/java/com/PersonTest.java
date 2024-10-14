@@ -1,3 +1,5 @@
+package com;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -67,18 +69,18 @@ public class PersonTest {
   }
 
   @Test
-  void testFindPeopleByAddress() {
-    assertEquals(3, util.findPeopleByAddress().size());
+  void testGroupPeopleByAddress() {
+    var actual = util.groupPeopleByAddress();
+    assertEquals(3, actual.get("Main street").size());
+    assertEquals(2, actual.get("Secondary street").size());
   }
 
   @Test
-  void testfindPeopleByAddress() {
-    assertEquals(3, util.findPeopleByAddress().size());
-  }
-
-  @Test
-  void testFindAgesByAddress() {
-    assertEquals(3, util.findPeopleByAddress().size());
+  void testGroupAgesByAddress() {
+    var actual = util.groupAgesByAddress();
+    assertEquals(3, actual.get("Main street").size());
+    assertEquals(2, actual.get("Secondary street").size());
+    assertTrue(actual.get("Secondary street").containsAll(List.of(2, 35)));
   }
 
   @Test
@@ -89,7 +91,7 @@ public class PersonTest {
   @Test
   void testGetPersonCsv() {
     assertEquals(
-        "Alice,30,Main street\nBob,25,Main street\nCharlie,35,Secondary street\nDaphne,2,Secondary street\nEric,0,Main street\n",
+        "Name,Age,Address\nAlice,30,Main street\nBob,25,Main street\nCharlie,35,Secondary street\nDaphne,2,Secondary street\nEric,0,Main street\n",
         util.getPersonCsv());
   }
 

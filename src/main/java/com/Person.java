@@ -1,3 +1,5 @@
+package com;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +14,7 @@ public class Person {
   public Person(String name, int age, String address) {
     this.name = name;
     this.age = age;
+    this.address = address;
   }
 
   // Getters and setters

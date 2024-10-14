@@ -1,3 +1,5 @@
+package com;
+
 import java.util.*;
 import java.util.stream.*;
 
@@ -60,7 +62,7 @@ public class PersonUtilStreams {
 
   //
   //
-  public Map<String, List<Person>> findPeopleByAddress() {
+  public Map<String, List<Person>> groupPeopleByAddress() {
     return people.stream()
         .collect(Collectors.groupingBy(Person::getAddress));
   }
@@ -68,7 +70,7 @@ public class PersonUtilStreams {
   //
   //
   //
-  public Map<String, List<Integer>> findAgesByAddress() {
+  public Map<String, List<Integer>> groupAgesByAddress() {
     return people.stream()
         .collect(Collectors.groupingBy(
             Person::getAddress,

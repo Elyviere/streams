@@ -1,3 +1,5 @@
+package com;
+
 import java.util.*;
 //
 
@@ -63,7 +65,7 @@ public class PersonUtil {
     return spouses;
   }
 
-  public Map<String, List<Person>> findPeopleByAddress() {
+  public Map<String, List<Person>> groupPeopleByAddress() {
     Map<String, List<Person>> result = new HashMap<>();
     for (Person person : people) {
       result.computeIfAbsent(person.getAddress(), k -> new ArrayList<>()).add(person);
@@ -71,7 +73,7 @@ public class PersonUtil {
     return result;
   }
 
-  public Map<String, List<Integer>> findAgesByAddress() {
+  public Map<String, List<Integer>> groupAgesByAddress() {
     Map<String, List<Integer>> result = new HashMap<>();
     for (Person person : people) {
       result.computeIfAbsent(person.getAddress(), k -> new ArrayList<>()).add(person.getAge());
