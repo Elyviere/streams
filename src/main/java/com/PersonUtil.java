@@ -10,11 +10,6 @@ public class PersonUtil {
     this.people = people;
   }
 
-  String findSpousesName(Person person) {
-    Person spouse = person.getSpouseOrNull();
-    return spouse != null ? spouse.getName() : null;
-  }
-
   public Person findPersonByName(String name) {
     for (Person person : people) {
       if (person.getName().equals(name)) {

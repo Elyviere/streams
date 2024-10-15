@@ -10,18 +10,13 @@ public class PersonUtilStreams {
     this.people = people;
   }
 
-  Optional<String> findSpousesName(Person person) {
-    return person.getSpouse().map(Person::getName);
-  }
-
-  //
   Optional<Person> findPersonByName(String name) {
     //
     //
     //
     //
     //
-    return null;
+    return Optional.empty();
   }
 
   public List<Person> findPeopleByAgeRange(int min, int max) {
@@ -31,7 +26,7 @@ public class PersonUtilStreams {
     //
     //
     //
-    return null;
+    return List.of();
   }
 
   public List<Person> findAllChildren() {
@@ -41,7 +36,7 @@ public class PersonUtilStreams {
     //
     //
     //
-    return null;
+    return List.of();
   }
 
   public List<Person> findAllChildrenFromParents() {
@@ -49,7 +44,7 @@ public class PersonUtilStreams {
     //
     //
     //
-    return null;
+    return List.of();
   }
 
   public Set<Person> findAllChildrenAsSet() {
@@ -57,7 +52,7 @@ public class PersonUtilStreams {
     //
     //
     //
-    return null;
+    return Set.of();
   }
 
   public Set<Person> findAllSpouses() {
@@ -67,7 +62,7 @@ public class PersonUtilStreams {
     //
     //
     //
-    return null;
+    return Set.of();
   }
 
   public Map<String, List<Person>> groupPeopleByAddress() {
@@ -75,7 +70,7 @@ public class PersonUtilStreams {
     //
     //
     //
-    return null;
+    return Map.of();
   }
 
   public Map<String, List<Integer>> groupAgesByAddress() {
@@ -83,7 +78,7 @@ public class PersonUtilStreams {
     //
     //
     //
-    return null;
+    return Map.of();
   }
 
   public Optional<Person> getOldestPerson() {
@@ -93,7 +88,7 @@ public class PersonUtilStreams {
     //
     //
     //
-    return null;
+    return Optional.empty();
   }
 
   public double getAverageAge() {
@@ -111,7 +106,7 @@ public class PersonUtilStreams {
     //
     //
     //
-    return null;
+    return "";
   }
 
   public void setAddressOfPeople(String address) {

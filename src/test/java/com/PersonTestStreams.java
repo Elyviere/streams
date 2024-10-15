@@ -21,14 +21,6 @@ public class PersonTestStreams {
   }
 
   @Test
-  void findSpousesName() {
-    Optional<Person> bob = util.findPersonByName("Bob");
-    Optional<String> spouseName = util.findSpousesName(bob.orElseThrow(() -> new NullPointerException()));
-    assertTrue(spouseName.isPresent());
-    assertEquals("Alice", spouseName.get());
-  }
-
-  @Test
   void testFindPersonByName() {
     Optional<Person> foundPerson = util.findPersonByName("Bob");
     assertTrue(foundPerson.isPresent());
@@ -53,8 +45,8 @@ public class PersonTestStreams {
     Optional<Person> alice = util.findPersonByName("Alice");
     assertAll(
         () -> assertTrue(bob.isPresent()),
-        () -> assertTrue(alice.isPresent()),
-        () -> assertEquals(alice, bob.get().getSpouse().orElse(null)),
+        () -> assertTrue(alice.isPresent()));
+    assertAll(() -> assertEquals(alice, bob.get().getSpouse().orElse(null)),
         () -> assertEquals(bob, bob.get().getSpouse().orElseThrow(() -> new NullPointerException()).getSpouse().get()));
   }
 
@@ -84,14 +76,18 @@ public class PersonTestStreams {
   @Test
   void testGroupPeopleByAddress() {
     var actual = util.groupPeopleByAddress();
+    assertTrue(actual.containsKey("Main street"));
     assertEquals(3, actual.get("Main street").size());
+    assertTrue(actual.containsKey("Secondary street"));
     assertEquals(2, actual.get("Secondary street").size());
   }
 
   @Test
   void testGroupAgesByAddress() {
     var actual = util.groupAgesByAddress();
+    assertTrue(actual.containsKey("Main street"));
     assertEquals(3, actual.get("Main street").size());
+    assertTrue(actual.containsKey("Secondary street"));
     assertEquals(2, actual.get("Secondary street").size());
     assertTrue(actual.get("Secondary street").containsAll(List.of(2, 35)));
   }
