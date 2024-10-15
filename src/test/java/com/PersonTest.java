@@ -20,6 +20,13 @@ public class PersonTest {
   }
 
   @Test
+  void findSpousesName() {
+    Person bob = util.findPersonByName("Bob");
+    String spouseName = util.findSpousesName(bob);
+    assertEquals("Alice", spouseName);
+  }
+
+  @Test
   void testFindPersonByName() {
     Person foundPerson = util.findPersonByName("Bob");
     assertEquals("Bob", foundPerson.getName());

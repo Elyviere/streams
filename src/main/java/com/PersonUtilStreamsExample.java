@@ -10,7 +10,12 @@ public class PersonUtilStreamsExample {
     this.people = people;
   }
 
-  Optional<Person> findPersonByName(String name) {
+  Optional<String> findSpousesName(Person person) {
+    return person.getSpouse().map(Person::getName);
+  }
+
+  //
+  public Optional<Person> findPersonByName(String name) {
     return people.stream()
         .filter(person -> person.getName().equals(name))
         .findAny();

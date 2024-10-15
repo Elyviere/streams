@@ -21,6 +21,14 @@ public class PersonTestStreams {
   }
 
   @Test
+  void findSpousesName() {
+    Optional<Person> bob = util.findPersonByName("Bob");
+    Optional<String> spouseName = util.findSpousesName(bob.orElseThrow(() -> new NullPointerException()));
+    assertTrue(spouseName.isPresent());
+    assertEquals("Alice", spouseName.get());
+  }
+
+  @Test
   void testFindPersonByName() {
     Optional<Person> foundPerson = util.findPersonByName("Bob");
     assertTrue(foundPerson.isPresent());
@@ -46,8 +54,8 @@ public class PersonTestStreams {
     assertAll(
         () -> assertTrue(bob.isPresent()),
         () -> assertTrue(alice.isPresent()),
-        () -> assertEquals(alice, bob.get().getSpouseOrNull()),
-        () -> assertEquals(bob, bob.get().getSpouseOrNull().getSpouseOrNull()));
+        () -> assertEquals(alice, bob.get().getSpouse().orElse(null)),
+        () -> assertEquals(bob, bob.get().getSpouse().orElseThrow(() -> new NullPointerException()).getSpouse().get()));
   }
 
   @Test
